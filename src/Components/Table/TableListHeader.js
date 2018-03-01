@@ -1,10 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 
-const TableListHeader = ({makeArrowSort,arrowSorter})=> {
+const TableListHeader = ({arrowSorter, todoItemsChoice, makeArrowSortHandler})=> {
  const arrowDirection = arrowSorter ?
   (<p className="triangle-sorted down-sorted-arrow"> </p>) :
   (<p className="triangle-sorted up-sorted-arrow"> </p>);
+
+ const makeArrowSort= ()=>{
+  let  sortedItems;
+  if(arrowSorter){
+   sortedItems = _.orderBy(todoItemsChoice, [item => item.choice.toLowerCase()], ['desc']);
+  }
+  else{
+   sortedItems = _.orderBy(todoItemsChoice, [item => item.choice.toLowerCase()], ['asc']);
+  }
+
+  makeArrowSortHandler(sortedItems,!arrowSorter)
+ };
+
 
  return(
   <thead>
@@ -29,9 +43,10 @@ const TableListHeader = ({makeArrowSort,arrowSorter})=> {
 export default TableListHeader
 
 TableListHeader.defaultProps ={
- makeArrowSort: [],
+ todoItemsChoice: [],
 };
 
 TableListHeader.propTypes = {
- makeArrowSort: PropTypes.func,
+ todoItemsChoice: PropTypes.array,
+ makeArrowSortHandler: PropTypes.func,
 };

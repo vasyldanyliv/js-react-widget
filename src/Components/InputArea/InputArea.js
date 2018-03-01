@@ -3,7 +3,7 @@ import uuid from 'uuid';
 import TableListHeader from '../Table/TableListHeader';
 import TableList from '../Table/TableList';
 import Footer from '../Footer/Footer'
-import _ from 'lodash';
+
 
 class InputArea extends Component {
 
@@ -49,21 +49,12 @@ class InputArea extends Component {
   }
  };
 
- makeArrowSort = ()=>{
-  let  sortedItems;
-  const todoItemsChoice = this.state.items;
-  if(this.state.arrowSorter){
-   sortedItems = _.orderBy(todoItemsChoice, [item => item.choice.toLowerCase()], ['desc']);
-  }
-  else{
-   sortedItems = _.orderBy(todoItemsChoice, [item => item.choice.toLowerCase()], ['asc']);
-  }
+ makeArrowSortHandler = (sortedArray, directionOfArrow)=> {
   this.setState(()=>{
-   return {arrowSorter: !this.state.arrowSorter,
-    items:sortedItems
+   return {arrowSorter: directionOfArrow,
+    items:sortedArray
    }},()=>{this.saveLocalStorageData()});
  };
-
 
  getLocalStorageData = ()=>{
   if( !(!!localStorage.getItem("DATA"))  ){
@@ -86,8 +77,10 @@ class InputArea extends Component {
    <div>
     <div className='container-for-table'>
      <table className='table-container'>
-      <TableListHeader makeArrowSort= {this.makeArrowSort}
-                       arrowSorter={this.state.arrowSorter}/>
+      <TableListHeader makeArrowSortHandler = {this.makeArrowSortHandler}
+                       arrowSorter={this.state.arrowSorter}
+                       todoItemsChoice={this.state.items}
+      />
       <TableList todoItemsChoice={this.state.items}/>
      </table>
     </div>
