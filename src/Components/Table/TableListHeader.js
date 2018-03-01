@@ -2,12 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 
-const TableListHeader = ({arrowSorter, todoItemsChoice, makeArrowSortHandler})=> {
+const TableListHeader = ({arrowSorter, todoItemsChoice, makeArrowSort})=> {
  const arrowDirection = arrowSorter ?
   (<p className="triangle-sorted down-sorted-arrow"> </p>) :
   (<p className="triangle-sorted up-sorted-arrow"> </p>);
 
- const makeArrowSort= ()=>{
+ const makeArrowSortHandler= ()=>{
   let  sortedItems;
   if(arrowSorter){
    sortedItems = _.orderBy(todoItemsChoice, [item => item.choice.toLowerCase()], ['desc']);
@@ -16,7 +16,7 @@ const TableListHeader = ({arrowSorter, todoItemsChoice, makeArrowSortHandler})=>
    sortedItems = _.orderBy(todoItemsChoice, [item => item.choice.toLowerCase()], ['asc']);
   }
 
-  makeArrowSortHandler(sortedItems,!arrowSorter)
+  makeArrowSort(sortedItems,!arrowSorter)
  };
 
 
@@ -27,7 +27,7 @@ const TableListHeader = ({arrowSorter, todoItemsChoice, makeArrowSortHandler})=>
     <div className='container-name-sort'>
      <p className='title-name-item'>NAME</p>
      <span
-      onClick={makeArrowSort}
+      onClick={makeArrowSortHandler}
       className="button-arrow-sorter">
       {arrowDirection}
     </span>

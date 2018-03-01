@@ -4,7 +4,6 @@ import TableListHeader from '../Table/TableListHeader';
 import TableList from '../Table/TableList';
 import Footer from '../Footer/Footer'
 
-
 class InputArea extends Component {
 
  constructor(props){
@@ -49,7 +48,7 @@ class InputArea extends Component {
   }
  };
 
- makeArrowSortHandler = (sortedArray, directionOfArrow)=> {
+ makeArrowSort = (sortedArray, directionOfArrow)=> {
   this.setState(()=>{
    return {arrowSorter: directionOfArrow,
     items:sortedArray
@@ -77,7 +76,7 @@ class InputArea extends Component {
    <div>
     <div className='container-for-table'>
      <table className='table-container'>
-      <TableListHeader makeArrowSortHandler = {this.makeArrowSortHandler}
+      <TableListHeader makeArrowSort = {this.makeArrowSort}
                        arrowSorter={this.state.arrowSorter}
                        todoItemsChoice={this.state.items}
       />
