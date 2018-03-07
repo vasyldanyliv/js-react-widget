@@ -30,8 +30,8 @@ class InputArea extends Component {
     && inputItemPrice  > 0 )
    {
     itemArray.push({
-     choice: this.inputItemChoice.value,
-     price: this.inputItemPrice.value,
+     choice: inputItemChoice,
+     price: inputItemPrice,
      key: uuid.v1()
     });
     const totalSum = itemArray.map(item =>parseFloat(item.price)).reduce((cur, prev)=>{
